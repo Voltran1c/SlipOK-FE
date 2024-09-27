@@ -47,7 +47,7 @@ export default function App() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${apiUrl}/slipok`, {
+      const response = await fetch(`${apiUrl}`, {
         method: "POST",
         body: formData,
       });
@@ -89,15 +89,11 @@ export default function App() {
               Upload files
               <VisuallyHiddenInput
                 type="file"
-                onChange={handleFileChange} // เปลี่ยนการเรียกใช้จาก console.log
-                multiple
+                onChange={handleFileChange}
                 accept="image/*"
               />
             </Button>
-            {imageUrl !== "" && (
-              <img src={imageUrl} alt="Preview" width={300} />
-            )}
-
+            {imageUrl && <img src={imageUrl} alt="Preview" width={300} />}
             {slipData && (
               <Box>
                 <CheckOutlinedIcon />
