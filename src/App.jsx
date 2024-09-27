@@ -46,14 +46,15 @@ export default function App() {
     formData.append("files", selectedFile);
 
     try {
-      const response = await fetch("http://localhost:5000/slipok", {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/slipok`, {
         method: "POST",
         body: formData,
       });
       if (response.ok) {
         const data = await response.json();
         setSlipData(data);
-        alert("slip uploaded successfully!");
+        alert("Slip uploaded successfully!");
         console.log("Response:", data);
       } else {
         alert("Failed to upload Slip. Please try again.");
@@ -63,6 +64,7 @@ export default function App() {
       alert("An error occurred while uploading slip.");
     }
   };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -83,12 +85,11 @@ export default function App() {
               variant="contained"
               tabIndex={-1}
               startIcon={<CloudUploadIcon />}
-              onChange={handleFileChange}
             >
               Upload files
               <VisuallyHiddenInput
                 type="file"
-                onChange={(event) => console.log(event.target.files)}
+                onChange={handleFileChange} // เปลี่ยนการเรียกใช้จาก console.log
                 multiple
                 accept="image/*"
               />
